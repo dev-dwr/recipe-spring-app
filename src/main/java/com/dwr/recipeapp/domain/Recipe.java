@@ -20,7 +20,7 @@ public class Recipe {
     private String source;
     private String url;
     @Lob
-    private String direction;
+    private String directions;
 
     @ManyToMany
     @JoinTable(name ="recipe_category", joinColumns = @JoinColumn(name = "recipe_id"),
@@ -49,7 +49,7 @@ public class Recipe {
     public Set<Ingredient> getIngredients() {
         return ingredients;
     }
-    public Recipe addIngredients(Ingredient ingredient){
+    public Recipe addIngredient(Ingredient ingredient){
         ingredient.setRecipe(this);
         this.ingredients.add(ingredient);
         return  this;
