@@ -35,6 +35,12 @@ public class RecipeServiceImpl  implements RecipeService{
     }
 
     @Override
+    @Transactional //to prevent having problems when we get Lazy properties
+    public RecipeCommand findCommandById(Long id) {
+        return recipeToRecipeCommand.convert(findById(id));
+    }
+
+    @Override
     public Recipe findById(Long l) {
         Optional<Recipe> recipeOptional = recipeRepository.findById(l);
         if(recipeOptional.isEmpty()){
@@ -53,4 +59,6 @@ public class RecipeServiceImpl  implements RecipeService{
         log.debug("Saved RecipeID: " + savedRecipe.getId());
         return recipeToRecipeCommand.convert(savedRecipe);
     }
+
+
 }
