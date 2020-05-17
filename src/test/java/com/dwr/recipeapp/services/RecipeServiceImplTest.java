@@ -1,9 +1,12 @@
 package com.dwr.recipeapp.services;
 
+import com.dwr.recipeapp.converters.RecipeCommandToRecipe;
+import com.dwr.recipeapp.converters.RecipeToRecipeCommand;
 import com.dwr.recipeapp.domain.Recipe;
 import com.dwr.recipeapp.repositories.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -16,20 +19,27 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class RecipeServiceImplTest {
-    RecipeServiceImpl recipeService;
+
 
     @Mock
     RecipeRepository recipeRepository;
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+
+    @InjectMocks
+    RecipeServiceImpl recipeService;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this); //initializing Mocks
 
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository,recipeCommandToRecipe,recipeToRecipeCommand);
     }
 
     @Test
-    void getRecipesByIdTest() throws Exception{
+    void getRecipesByIdTest() throws Exception {
         Recipe recipe = new Recipe();
         recipe.setId(2L);
         Optional<Recipe> recipeOptional = Optional.of(recipe);
@@ -52,7 +62,7 @@ class RecipeServiceImplTest {
 
         when(recipeRepository.findAll()).thenReturn(recipesData);
 
-        Set<Recipe> recipes =  recipeService.getRecipes();
+        Set<Recipe> recipes = recipeService.getRecipes();
 
         assertEquals(recipes.size(), 1);
 

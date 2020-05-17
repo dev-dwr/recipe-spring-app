@@ -22,9 +22,8 @@ public class Ingredient {
     @OneToOne(fetch = FetchType.EAGER) //its gonna be retrived every time in db
     private UnitOfMeasure uom;
 
-    public  Ingredient(){
+    public Ingredient(){}
 
-    }
     public Ingredient( String description, BigDecimal amount, UnitOfMeasure uom,Recipe recipe) {
         this.description = description;
         this.amount = amount;
