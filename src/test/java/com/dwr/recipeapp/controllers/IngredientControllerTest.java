@@ -1,6 +1,9 @@
 package com.dwr.recipeapp.controllers;
 
+import com.dwr.recipeapp.commands.IngredientCommand;
 import com.dwr.recipeapp.commands.RecipeCommand;
+import com.dwr.recipeapp.domain.Ingredient;
+import com.dwr.recipeapp.services.IngredientService;
 import com.dwr.recipeapp.services.RecipeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,6 +22,9 @@ class IngredientControllerTest {
     @Mock
     RecipeService recipeService;
 
+    @Mock
+    IngredientService ingredientService;
+
     @InjectMocks
     IngredientController controller;
 
@@ -27,7 +33,7 @@ class IngredientControllerTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        controller = new IngredientController(recipeService);
+        controller = new IngredientController(recipeService,ingredientService);
 
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
@@ -46,5 +52,19 @@ class IngredientControllerTest {
                 .andExpect(model().attributeExists("recipe"));
         //then
         verify(recipeService, times(1)).findCommandById(anyLong());
+    }
+
+    @Test
+    void showIngredientsTest() throws Exception{
+        //given
+        IngredientCommand ingredientCommand = new IngredientCommand();
+
+        //when
+        when(ingredientService.findRecipeIdAndIngredientId(anyLong(), anyLong())).thenReturn(ingredientCommand);
+
+        //then
+        mockMvc.perform(get("/recipe/1/ingredient/2/show")).andExpect(status().isOk())
+                .andExpect(view().name("recipe/ingredient/show"))
+                .andExpect(model().attributeExists("ingredient"));
     }
 }
