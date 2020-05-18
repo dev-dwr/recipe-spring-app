@@ -70,4 +70,16 @@ class RecipeServiceImplTest {
         verify(recipeRepository, times(1)).findAll();
 
     }
+    @Test
+    void deleteBtIdTest(){
+        //given
+        Long idToDelete = Long.valueOf(2L);
+
+        //when
+        recipeService.deleteById(idToDelete);
+
+        //recipeRepository is called one time with method deleteById()
+        //then
+        verify(recipeRepository,times(1)).deleteById(anyLong());
+    }
 }
