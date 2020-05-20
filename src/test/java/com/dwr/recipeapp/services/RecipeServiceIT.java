@@ -37,8 +37,9 @@ class RecipeServiceIT {
     RecipeToRecipeCommand recipeToRecipeCommand;
     //Each call to Spring Data JPA executes in separate transactions. To encompass them in one single transaction, the @Transactional annotation is used.
     //Assume you are not using @Transactional. For any database operation a transaction is required. In Spring Data JPA, all JPA repository methods comes with @Transactional annotation applied.
-    @Transactional
+
     @Test
+    @Transactional
     void saveOfDescriptionTest(){
         //given
         Iterable<Recipe> recipes = recipeRepository.findAll();

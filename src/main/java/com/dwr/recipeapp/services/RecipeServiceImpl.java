@@ -48,9 +48,8 @@ public class RecipeServiceImpl  implements RecipeService{
         }
         return recipeOptional.get();
     }
-
-    @Override
     @Transactional
+    @Override
     public RecipeCommand saveRecipeCommand(RecipeCommand recipeCommand) {
         //detached from Hibernate
         Recipe detachedRecipe = recipeCommandToRecipe.convert(recipeCommand);
