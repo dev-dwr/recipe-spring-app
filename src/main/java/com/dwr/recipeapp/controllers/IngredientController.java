@@ -1,6 +1,8 @@
 package com.dwr.recipeapp.controllers;
 
 import com.dwr.recipeapp.commands.IngredientCommand;
+import com.dwr.recipeapp.commands.RecipeCommand;
+import com.dwr.recipeapp.commands.UnitOfMeasureCommand;
 import com.dwr.recipeapp.domain.Ingredient;
 import com.dwr.recipeapp.services.IngredientService;
 import com.dwr.recipeapp.services.RecipeService;
@@ -65,6 +67,25 @@ public class IngredientController {
         log.debug("saved ingredient id: " + savedCommand.getId());
 
         return "redirect:/recipe/" + savedCommand.getRecipeId() + "/ingredient/" + savedCommand.getId() + "/show";
+    }
+
+    @GetMapping
+    @RequestMapping("recipe/{recipeId}/ingredient/new")
+    public String newRecipe(@PathVariable String recipeId,Model model){
+        //making sure we have good id value
+        RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(recipeId));
+
+        //need to return back parent id for hidden form property
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(Long.valueOf(recipeId));
+        model.addAttribute("ingredient", ingredientCommand);
+
+        //init oum
+        ingredientCommand.setUom(new UnitOfMeasureCommand());
+
+        model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
+
+        return "recipe/ingredient/ingredientform";
     }
 }
 

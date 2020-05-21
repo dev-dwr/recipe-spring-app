@@ -18,7 +18,8 @@
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form th:object="${recipe}" th:action="@{/recipe/}" method="post"> <!-- th:object="${recipe} it get the obj and poulates the from fields with the recipe pass back from controller-->
+            <form th:object="${recipe}" th:action="@{/recipe/}" method="post">
+                <!-- th:object="${recipe} it get the obj and poulates the from fields with the recipe pass back from controller-->
                 <input type="hidden" th:field="*{id}"/>
                 <div class="pannel-group">
                     <div class="panel panel-primary">
@@ -92,7 +93,7 @@
                                     <h1 class="panel-title">Ingredients</h1>
                                 </div>
                                 <div class="col-md-1">
-                                    <a class="btn btn-success" href="#" role="button">View</a>
+                                    <a class="btn btn-default" href="#" th:href="@{'/recipe/' +  '/ingredients/' + ${recipe.id}}" role="button">View</a>
                                 </div>
                             </div>
                         </div>

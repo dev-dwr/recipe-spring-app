@@ -5,7 +5,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode(exclude = {"recipes"}) //lombok is not happy about bi-directional properties, we need to exclude 'em
 @Entity
 public class Category {
