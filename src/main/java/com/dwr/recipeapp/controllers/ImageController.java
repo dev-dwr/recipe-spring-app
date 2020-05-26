@@ -47,6 +47,7 @@ public class ImageController {
         RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(id));
 
         if(recipeCommand.getImage() != null){
+            //in db is Byte[] and we need to convert it into byte[]
             byte[] byteArray = new byte[recipeCommand.getImage().length];
             int i = 0;
             //converting boxed byte image to primitive type

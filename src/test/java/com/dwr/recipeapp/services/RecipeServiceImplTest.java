@@ -3,7 +3,9 @@ package com.dwr.recipeapp.services;
 import com.dwr.recipeapp.converters.RecipeCommandToRecipe;
 import com.dwr.recipeapp.converters.RecipeToRecipeCommand;
 import com.dwr.recipeapp.domain.Recipe;
+import com.dwr.recipeapp.exceptions.NotFoundException;
 import com.dwr.recipeapp.repositories.RecipeRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -35,7 +37,7 @@ class RecipeServiceImplTest {
     void setUp() {
         MockitoAnnotations.initMocks(this); //initializing Mocks
 
-        recipeService = new RecipeServiceImpl(recipeRepository,recipeCommandToRecipe,recipeToRecipeCommand);
+        recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
     @Test
@@ -70,8 +72,9 @@ class RecipeServiceImplTest {
         verify(recipeRepository, times(1)).findAll();
 
     }
+
     @Test
-    void deleteBtIdTest(){
+    void deleteBtIdTest() {
         //given
         Long idToDelete = Long.valueOf(2L);
 
@@ -80,6 +83,19 @@ class RecipeServiceImplTest {
 
         //recipeRepository is called one time with method deleteById()
         //then
-        verify(recipeRepository,times(1)).deleteById(anyLong());
+        verify(recipeRepository, times(1)).deleteById(anyLong());
+    }
+
+    @Test()
+    void getRecipesByIdNotFoundTest() {
+        Assertions.assertThrows(NotFoundException.class,()->{
+            Optional<Recipe> recipeOptional = Optional.empty();
+
+            when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+            Recipe recipeReturned = recipeService.findById(1L);
+
+            //should throw NotFoundException
+        });
     }
 }
