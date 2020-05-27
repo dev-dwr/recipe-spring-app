@@ -8,13 +8,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 @Slf4j
 @Controller
 public class RecipeController {
     private final RecipeService recipeService;
+
+    private static final String RECIPE_RECIPE_FORM_URL = "recipe/recipeform";
 
     public RecipeController(RecipeService recipeService) {
         this.recipeService = recipeService;
@@ -30,21 +35,28 @@ public class RecipeController {
     @GetMapping("/recipe/new")
     public String newRecipe(Model model){
         model.addAttribute("recipe", new RecipeCommand());
-        return "recipe/recipeform";
+        return RECIPE_RECIPE_FORM_URL;
     }
 
 
     @GetMapping("/recipe/update/{id}")
     public String updateRecipe(@PathVariable String id, Model model){
         model.addAttribute("recipe", recipeService.findCommandById(Long.valueOf(id)));
-        return "recipe/recipeform";
+        return RECIPE_RECIPE_FORM_URL;
     }
 
 
-    //@ModelAttribute annotation to tell spring to bind the form post parameters to the RecipeCommand Obj
-    @PostMapping("/recipe")
-    public String saveOrUpdate(@ModelAttribute RecipeCommand recipeCommand){
+    //When using the @ModelAttribute annotation as a method parameter, it binds the form data with a POJO bean.
+    // It has a value attribute which acts as a name of the model attribute to bind.
+    @PostMapping("/recipe") //it's going to bind recipeCommand to the Model so it's get returned on this. Binding result it's result of validation
+    public String saveOrUpdate(@Valid @ModelAttribute("recipe") RecipeCommand recipeCommand, BindingResult result){
 
+        if(result.hasErrors()){
+            result.getAllErrors().forEach(objectError -> {
+                log.debug(objectError.toString());
+            });
+            return RECIPE_RECIPE_FORM_URL;
+        }
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(recipeCommand);
 
         return "redirect:/recipe/show/" + savedCommand.getId();
