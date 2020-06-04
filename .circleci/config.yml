@@ -1,7 +1,4 @@
 version: 2
-orbs:
-  codecov: codecov/codecov@1.0.2
-
 jobs:
   build:
     docker:
@@ -39,7 +36,3 @@ jobs:
 
       #tests
       - run: mvn integration-test
-      - run: mvn install
-      - run: mvn test
-      - run: mvn cobertura:cobertura
-      - run: bash <(curl -s https://codecov.io/bash)
