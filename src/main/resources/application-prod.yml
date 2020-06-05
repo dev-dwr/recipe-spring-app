@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    jdbc-url: jdb:mysql://localhost:3306/app_prod
+    username: app_prod_user
+    password: dwr
+    platform: mysql
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: false
+    database: mysql

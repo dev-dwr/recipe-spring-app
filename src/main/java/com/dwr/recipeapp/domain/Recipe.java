@@ -1,6 +1,6 @@
 package com.dwr.recipeapp.domain;
 
-import lombok.Data;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -40,7 +40,7 @@ public class Recipe {
     @OneToOne(cascade = CascadeType.ALL) //Recipe is going to be owner of this relationship. By cascade we mean when we delete Recipe, note will disappear as well
     private Notes notes;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "recipe") //"Go look over on the bean property named 'recipe' on the thing I have a collection of to find the configuration.
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe") //"Go look over on the bean property named 'recipe' on the thing I have a collection of to find the configuration.
     private Set<Ingredient> ingredients = new HashSet<>();
 
 
