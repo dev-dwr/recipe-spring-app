@@ -1,3 +1,21 @@
 [![CircleCI](https://circleci.com/gh/springframeworkguru/spring5-recipe-app.svg?style=svg)](https://circleci.com/gh/springframeworkguru/spring5-recipe-app)
-# recipe-spring-app
-simple recipe app built with Spring Boot, Spring JPA, Hibernate.
+# Recipe Spring Application
+Simple Recipe CRUD Application.
+
+## Getting Started
+To start project first of all clone it then open in your IDE.
+To run MySQL use Docker.
+```dockerfile
+docker run --name database -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -e MYSQL_DATABASE=database -d mysql
+```
+## Prerequisites
+* Java 11
+* Docker 
+* Maven
+
+## Built With
+* Spring 5
+* Spring Data JPA
+* MySQL
+* Thymeleaf 
+* JUnit 5

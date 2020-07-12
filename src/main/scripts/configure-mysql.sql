@@ -22,7 +22,6 @@ GRANT UPDATE ON app_dev.* to 'app_dev_user'@'localhost';
 GRANT SELECT ON app_prod.* to 'app_prod_user'@'localhost';
 GRANT INSERT ON app_prod.* to 'app_prod_user'@'localhost';
 GRANT UPDATE ON app_prod.* to 'app_prod_user'@'localhost';
-
 GRANT SELECT ON app_dev.* to 'app_dev_user'@'%';
 GRANT INSERT ON app_dev.* to 'app_dev_user'@'%';
 GRANT DELETE ON app_dev.* to 'app_dev_user'@'%';

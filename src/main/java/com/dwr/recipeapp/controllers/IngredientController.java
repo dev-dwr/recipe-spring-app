@@ -37,7 +37,7 @@ public class IngredientController {
     }
 
     @GetMapping
-    @RequestMapping("recipe/{recipeId}/ingredient/{id}/show")
+    @RequestMapping("/recipe/{recipeId}/ingredient/{id}/show")
     public String showRecipeIngredient(@PathVariable String recipeId,
                                        @PathVariable String id, Model model) {
         model.addAttribute("ingredient", ingredientService.findRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id)));
@@ -46,7 +46,7 @@ public class IngredientController {
 
 
     @GetMapping
-    @RequestMapping("recipe/{recipeId}/ingredient/{id}/update")
+    @RequestMapping("/recipe/{recipeId}/ingredient/{id}/update")
     public String updateRecipeIngredient(@PathVariable String recipeId,
                                          @PathVariable String id, Model model) {
 
@@ -59,7 +59,7 @@ public class IngredientController {
     }
 
     @PostMapping
-    @RequestMapping("recipe/{recipeId}/ingredients")
+    @RequestMapping("/recipe/{recipeId}/ingredients")
     public String saveOrUpdate(@ModelAttribute IngredientCommand command) {
         IngredientCommand savedCommand = ingredientService.saveIngredientCommand(command);
 
@@ -70,7 +70,7 @@ public class IngredientController {
     }
 
     @GetMapping
-    @RequestMapping("recipe/{recipeId}/ingredient/new")
+    @RequestMapping("/recipe/{recipeId}/ingredient/new")
     public String newIngredient(@PathVariable String recipeId, Model model) {
         //making sure we have good id value
         RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(recipeId));
