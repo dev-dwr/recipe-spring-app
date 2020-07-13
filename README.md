@@ -16,6 +16,7 @@ docker run --name database -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -e MYSQL_DATABASE=d
 ## Built With
 * Spring 5
 * Spring Data JPA
+* SQL
 * MySQL
 * Thymeleaf 
 * JUnit 5
