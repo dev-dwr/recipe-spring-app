@@ -2,9 +2,9 @@
 # Recipe Spring Application
 Simple Recipe CRUD Application.
 
-## Getting Started
+## Installation
 To start project first of all clone it then open in your IDE.
-To run MySQL use Docker.
+To run MySQL use Docker. After that start the project
 ```dockerfile
 docker run --name database -e MYSQL_ALLOW_EMPTY_PASSWORD=yes -e MYSQL_DATABASE=database -d mysql
 ```
